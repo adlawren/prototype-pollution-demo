@@ -1,0 +1,28 @@
+<h1>Update Configuration:</h1>
+
+<div>
+    Greeting: <input type="text" id="greeting" /> (Current value: "<%= currentGreeting %>")
+</div>
+
+<br />
+
+<div>
+    <button onclick="javascript:updateConfig()">Save</button>
+</div>
+
+<script>
+ function updateConfig() {
+     var greetingInput = document.getElementById("greeting");
+     greeting = greetingInput.value;
+
+     xhttp = new XMLHttpRequest();
+     xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+             alert("Config updated!");
+         }
+     }
+     xhttp.open("POST", "/config", true);
+     xhttp.setRequestHeader("Content-Type", "application/json");
+     xhttp.send(JSON.stringify({ homepage: { greeting: greeting } }));
+ }
+</script>
